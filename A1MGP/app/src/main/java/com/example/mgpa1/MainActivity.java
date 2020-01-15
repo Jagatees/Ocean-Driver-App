@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myRef.child("GameOver").setValue("false");
+        MusicmyRef.child("Music").setValue("ON");
 
 
         //Music player done by Yanson

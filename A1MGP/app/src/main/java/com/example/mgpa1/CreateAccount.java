@@ -96,8 +96,8 @@ public class CreateAccount extends Activity {
             public void onClick(View v) {
                 showAlertDialog(v);
 
-//                Intent intent = new Intent(CreateAccount.this, Login.class);
-//                startActivity(intent);
+                Intent intent = new Intent(CreateAccount.this, Login.class);
+                startActivity(intent);
             }
         });
     }
