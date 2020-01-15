@@ -11,6 +11,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Button;
@@ -46,6 +47,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
     public static final int WIDTH = 856;
     public static final int HEIGHT = 480;
 
+    OrientationData orientationData;
+    private long frametime;
+
 
     public GamePanel(Context context){
         super(context);
@@ -57,6 +61,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
         player.update(playerPoint);
         obstacleManager = new ObstacleManager(350 , 1000 , 100, Color.rgb(150, 75,0));
         setFocusable(true);
+
+
+        orientationData = new OrientationData();
+        orientationData.register();
+        frametime = System.currentTimeMillis();
     }
 
     // to restart the game when the player die or press the restart button
@@ -77,6 +86,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.water));
         bg.setVector(-5);
         thread = new MainThread(getHolder(), this);
+        Constants.INIT_TIME = System.currentTimeMillis();
         thread.setRunning(true);
         thread.start();
 
@@ -113,6 +123,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
                     reset();
                     gameOver = false;
                     myRef.child("GameOver").setValue("false");
+                    orientationData.newGame();
                 }
 
                 break;
@@ -133,6 +144,39 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
     // this is where u update the whole game like player , obstaclcer and enemy
     public void update() throws InterruptedException {
         if ( !gameOver ){
+
+
+            if (frametime < Constants.INIT_TIME)
+                frametime = Constants.INIT_TIME;
+
+            int elapsedTime = (int) (System.currentTimeMillis() - frametime);
+            frametime = System.currentTimeMillis();
+
+            if (orientationData.getOrentation() != null && orientationData.getStartOrientation() != null){
+                float pitch = orientationData.getOrentation()[1] - orientationData.getStartOrientation()[1];
+                float roll = orientationData.getOrentation()[2] - orientationData.getStartOrientation()[2];
+
+                // when we have our phone all the way down move th eplayer all the way down
+                float xspeed = 2* roll * Constants.SCREEN_WIDTH / 500f;
+                float yspeed = pitch * Constants.SCREEN_HEIGHT / 1000f;
+
+                playerPoint.x += Math.abs(xspeed* elapsedTime) > 5 ? xspeed * elapsedTime : 0;
+                playerPoint.y -= Math.abs(yspeed*elapsedTime) > 5 ? yspeed * elapsedTime : 0;
+
+            }
+
+            if (playerPoint.x < 0){
+                playerPoint.x = 0;
+            }else if (playerPoint.x > Constants.SCREEN_WIDTH){
+                playerPoint.x = Constants.SCREEN_WIDTH;
+            }
+
+            if (playerPoint.y < 0){
+                playerPoint.y = 0;
+            }else if (playerPoint.y > Constants.SCREEN_HEIGHT){
+                playerPoint.y = Constants.SCREEN_WIDTH;
+            }
+
             player.update(playerPoint);
             obstacleManager.update();
             bg.update();

@@ -96,8 +96,7 @@ public class CreateAccount extends Activity {
             public void onClick(View v) {
                 showAlertDialog(v);
 
-                Intent intent = new Intent(CreateAccount.this, Login.class);
-                startActivity(intent);
+
             }
         });
     }
@@ -110,6 +109,9 @@ public class CreateAccount extends Activity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(CreateAccount.this, "Yes", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(CreateAccount.this, Login.class);
+                startActivity(intent);
             }
         });
 

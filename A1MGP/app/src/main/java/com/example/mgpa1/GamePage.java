@@ -32,9 +32,6 @@ public class GamePage extends Activity {
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("GameOver");
 
-    Vibrator vibrator;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

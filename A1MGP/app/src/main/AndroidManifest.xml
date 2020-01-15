@@ -21,7 +21,8 @@
         <activity android:name=".DeathScreen" />
         <activity android:name=".SettingPage" />
         <activity android:name=".GamePanel" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".GamePage" />
         <activity android:name=".Login">
             <intent-filter>
