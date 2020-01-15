@@ -90,9 +90,6 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-
-
-
         btnLeaderBoard = findViewById(R.id.btnLeader);
         btnLeaderBoard.setOnClickListener(new View.OnClickListener() {
             @Override

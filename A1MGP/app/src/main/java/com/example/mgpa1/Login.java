@@ -53,7 +53,6 @@ public class Login extends Activity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-
         btnGoCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,11 +84,6 @@ public class Login extends Activity {
                                 }
                             }
                         });
-
-
-
-
-
             }
         });
     }
