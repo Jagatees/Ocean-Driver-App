@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CoinManager {
+public class SpeedPowerUpManager {
 
     // higer index = lower on screen = higer y value
     private ArrayList<Coin> coins; // store all the obstacles
@@ -39,12 +39,10 @@ public class CoinManager {
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
-    DatabaseReference coinRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Coins").push();
 
 
 
-
-    public CoinManager(int playerGap, int obstacleGap, int obstacleHeight, int color){
+    public SpeedPowerUpManager(int playerGap, int obstacleGap, int obstacleHeight, int color){
         this.playerGap = playerGap;
         this.obstacleGap = obstacleGap;
         this.obstacleHeight = obstacleHeight;
@@ -76,7 +74,6 @@ public class CoinManager {
                 int xStart = (int)(Math.random() );
                 coins.add(0, new Coin(obstacleHeight, color, xStart, coins.get(0).getRectangle().top - obstacleHeight - obstacleGap , playerGap));
                 coins.remove(coins.size() - 1 );
-                coinRef.setValue(score);
                 return true;
             }
         }

@@ -53,7 +53,7 @@ public class ObstacleManager {
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference P_ref = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("P_LeaderBoard").push();
-    DatabaseReference G_ref = FirebaseDatabase.getInstance().getReference("G_LeaderBoard").push();
+    //DatabaseReference G_ref = FirebaseDatabase.getInstance().getReference("G_LeaderBoard").push();
 
     // playergap == width of the gap the plauer have to fit throw
     public ObstacleManager(int playerGap, int obstacleGap, int obstacleHeight, int color){
@@ -82,7 +82,7 @@ public class ObstacleManager {
         for (Obstacle ob : obstacles){
             if ( ob.playerCollide(player) ){
                 P_ref.setValue(i);
-                G_ref.setValue(i);
+                //G_ref.setValue(i);
                 return true;
             }
         }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Vector;
 
 
 // Code Written By : Jagateesvaran , 180776N
@@ -39,15 +41,15 @@ public class LeaderBoard extends Activity {
     Button btnBack;
 
 
-    DatabaseReference g_leaderBoard = FirebaseDatabase.getInstance().getReference("G_LeaderBoard");
+    //DatabaseReference g_leaderBoard = FirebaseDatabase.getInstance().getReference("G_LeaderBoard");
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference p_leaderbaord = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("P_LeaderBoard");
     DatabaseReference MusicmyRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
 
 
-    private ArrayList<String> pScore = new ArrayList<>();
-    private ArrayList<String> pCoin = new ArrayList<>();
+    private ArrayList<Integer> pScore = new ArrayList<Integer>();
+    private ArrayList<Integer> pCoin = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class LeaderBoard extends Activity {
         textView1 = (TextView) findViewById(R.id.firstPlace);
         textView2 = (TextView) findViewById(R.id.secondPlace);
         textView3 = (TextView) findViewById(R.id.thridPlace);
+
         btnBack = (Button) findViewById(R.id.btnBack);
 
 
@@ -89,14 +92,14 @@ public class LeaderBoard extends Activity {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     //String name = ds.getKey();
                     String name = String.valueOf(ds.getValue());
-                    pScore.add(name);
+                    pScore.add(Integer.parseInt(name));
+
                 }
+                Collections.sort(pScore);
 
-                //Collections.sort(pScore);
-
-                textView1.setText(pScore.get(0));
-                textView2.setText(pScore.get(1));
-                textView3.setText(pScore.get(2));
+                textView1.setText(pScore.get(pScore.size() - 1).toString());
+                textView2.setText(pScore.get(pScore.size() - 2).toString());
+                textView3.setText(pScore.get(pScore.size() - 3).toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -124,22 +127,22 @@ public class LeaderBoard extends Activity {
 
 
         // redo the leader board
-       // DatabaseReference myref = FirebaseDatabase.getInstance().getReference("G_LeaderBoard").child("Coins");
-        p_leaderbaord.addValueEventListener(new ValueEventListener() {
+        DatabaseReference coinss = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Coins");
+        coinss.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     //String name = ds.getKey();
                     String name = String.valueOf(ds.getValue());
-                    pCoin.add(name);
+                    pCoin.add(Integer.parseInt(name));
                 }
 
                Collections.sort(pCoin);
 
-                textView1Coin.setText(pCoin.get(0));
-                textView2Coin.setText(pCoin.get(1));
-                textView3Coin.setText(pCoin.get(2));
+                textView1Coin.setText(pCoin.get(pCoin.size() - 1).toString());
+                textView2Coin.setText(pCoin.get(pCoin.size() - 2).toString());
+                textView3Coin.setText(pCoin.get(pCoin.size() - 3).toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

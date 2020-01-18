@@ -39,6 +39,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
     private Point playerPoint;
     private ObstacleManager obstacleManager;
     private Background bg;
+    private SpeedPowerUpManager speedPowerUpManager;
 
     private boolean movingPlayer = false;
     public boolean gameOver = false;
@@ -60,6 +61,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
         playerPoint = new Point(Constants.SCREEN_WIDTH / 2 , 3 * Constants.SCREEN_HEIGHT / 4); // where the player spawn on the screen
         player.update(playerPoint);
         obstacleManager = new ObstacleManager(350 , 1000 , 100, Color.rgb(150, 75,0));
+        speedPowerUpManager = new SpeedPowerUpManager(200 , 1000 , 100, Color.GREEN);
+
         setFocusable(true);
 
 
@@ -180,6 +183,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
             player.update(playerPoint);
             obstacleManager.update();
             bg.update();
+            speedPowerUpManager.update();
 
             if ( obstacleManager.playerCollide(player)){
                 myRef.child("GameOver").setValue("true");
@@ -187,6 +191,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
                 gameOverTime = System.currentTimeMillis();
             }
 
+            if (speedPowerUpManager.playerCollide(player)){
+                gameOver = false;
+            }
 
         }
     }
@@ -208,6 +215,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
         player.draw(canvas);
         obstacleManager.draw(canvas);
+        speedPowerUpManager.draw(canvas);
 
         if ( gameOver ){
             Paint paint = new Paint();
