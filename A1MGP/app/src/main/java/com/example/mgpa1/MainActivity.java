@@ -153,7 +153,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                Intent intent = new Intent(MainActivity.this, SharePage.class);
+                Intent intent = new Intent(MainActivity.this, Share2.class);
                 startActivity(intent);
             }
         });

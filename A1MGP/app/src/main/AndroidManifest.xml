@@ -12,10 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <activity android:name=".Share2"></activity>
 
-        <activity android:name=".Customization"></activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".Customization" />
         <activity android:name=".LevelThreePage" />
         <activity android:name=".LevelTwoPage" />
         <activity android:name=".LevelPicker" />
@@ -25,8 +28,9 @@
         <activity android:name=".DeathScreen" />
         <activity android:name=".SettingPage" />
         <activity android:name=".GamePanel" />
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".GamePage" />
         <activity android:name=".Login">
             <intent-filter>
@@ -37,9 +41,9 @@
         </activity>
 
         <provider
-            android:authorities="com.facebook.app.FacebookContentPrivider873081136477976"
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentPrivider873081136477976"
+            android:exported="true" />
     </application>
 
 </manifest>
