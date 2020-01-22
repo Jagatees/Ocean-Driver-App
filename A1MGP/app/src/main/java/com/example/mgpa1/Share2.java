@@ -67,9 +67,9 @@ public class Share2 extends Activity {
 
 
 //init view
-        btnShareLink = (Button)findViewById(R.id.btnShareLink);
-        btnSharePhoto = (Button)findViewById(R.id.btnSharePhoto);
-        btnShareVideo = (Button)findViewById(R.id.btnShareVideo);
+        btnShareLink = (Button) findViewById(R.id.btnShareLink);
+        btnSharePhoto = (Button) findViewById(R.id.btnSharePhoto);
+        btnShareVideo = (Button) findViewById(R.id.btnShareVideo);
 
         //init fb
         callbackManager = CallbackManager.Factory.create();
@@ -97,40 +97,35 @@ public class Share2 extends Activity {
                     .setQuote("This is useful link")
                     .setContentUrl(Uri.parse("http://youtube.com"))
                     .build();
-            if (shareDialog.canShow(ShareLinkContent.class))
-            {
+            if (shareDialog.canShow(ShareLinkContent.class)) {
                 shareDialog.show(linkContent);
             }
         });
 
-        btnSharePhoto.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        btnSharePhoto.setOnClickListener((view) -> {
+            //Create callback
+            shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                @Override
+                public void onSuccess(Sharer.Result result) {
+                    Toast.makeText(Share2.this, "share successful", Toast.LENGTH_SHORT).show();
+                }
 
-                //Create callback
-                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-                    @Override
-                    public void onSuccess(Sharer.Result result) {
-                        Toast.makeText(Share2.this, "share successful", Toast.LENGTH_SHORT).show();
-                    }
+                @Override
+                public void onCancel() {
+                    Toast.makeText(Share2.this, "Share cancel", Toast.LENGTH_SHORT).show();
+                }
 
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(Share2.this, "Share cancel", Toast.LENGTH_SHORT).show();
-                    }
+                @Override
+                public void onError(FacebookException error) {
+                    Toast.makeText(Share2.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                    @Override
-                    public void onError(FacebookException error) {
-                        Toast.makeText(Share2.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                Picasso.with(getBaseContext())
-                        .load("https://i.kym-cdn.com/entries/icons/original/000/030/967/spongebob.jpg")
-                        .into(target);
-            }
-
+            Picasso.with(getBaseContext())
+                    .load("https://i.kym-cdn.com/entries/icons/original/000/030/967/spongebob.jpg")
+                    .into(target);
         });
+
 
         btnShareVideo.setOnClickListener(new View.OnClickListener(){
             @Override
