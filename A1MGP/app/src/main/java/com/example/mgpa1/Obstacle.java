@@ -9,6 +9,8 @@ import androidx.constraintlayout.solver.widgets.Rectangle;
 
 import java.util.Random;
 
+// Code Written By : Yanson , 180500N
+
 public class Obstacle implements GameObject{
 
 

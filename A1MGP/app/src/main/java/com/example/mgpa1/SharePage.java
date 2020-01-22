@@ -27,6 +27,8 @@ import com.squareup.picasso.Target;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+// Code Written By : Yanson , 180500N
+
 public class SharePage extends AppCompatActivity {
 
     private static final int REQUEST_VIDEO_CODE = 1000;

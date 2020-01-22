@@ -27,6 +27,7 @@ import java.util.Random;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static androidx.core.content.ContextCompat.startActivity;
 
+// Code Written By : Yanson , 180500N
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 

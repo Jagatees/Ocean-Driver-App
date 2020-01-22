@@ -27,6 +27,8 @@ import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+// Code Written By : Yanson , 180500N
+
 public class Share2 extends Activity {
     private static final int REQUEST_VIDEO_CODE = 1000;
     Button btnShareLink, btnSharePhoto, btnShareVideo;
