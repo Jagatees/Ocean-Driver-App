@@ -5,9 +5,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import static androidx.media2.MediaUtils.TAG;
 
 // Code Written By : Jagateesvaran , 180776N
@@ -33,7 +40,7 @@ import static androidx.media2.MediaUtils.TAG;
 
 public class MainActivity extends Activity {
 
-    Button button, btnSetting, btnLeaderBoard, btnCustomiza, btnLogout;
+    Button button, btnSetting, btnLeaderBoard, btnCustomiza, btnLogout, btnShare;
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference MusicmyRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
 
@@ -43,9 +50,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        printKeyHash();
+
         myRef.child("GameOver").setValue("false");
         MusicmyRef.child("Music").setValue("ON");
-
 
         //Music player done by Yanson
         MusicManager musicplayer = null;
@@ -138,6 +147,17 @@ public class MainActivity extends Activity {
             }
         });
 
+        btnShare = findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent = new Intent(MainActivity.this, SharePage.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -173,4 +193,20 @@ public class MainActivity extends Activity {
 
     //Music player done by Yanson
 
+    private void printKeyHash()
+    {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.example.mgpa1",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        }catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 }
