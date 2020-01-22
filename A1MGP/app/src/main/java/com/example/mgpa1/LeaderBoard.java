@@ -97,9 +97,29 @@ public class LeaderBoard extends Activity {
                 }
                 Collections.sort(pScore);
 
-                textView1.setText(pScore.get(pScore.size() - 1).toString());
-                textView2.setText(pScore.get(pScore.size() - 2).toString());
-                textView3.setText(pScore.get(pScore.size() - 3).toString());
+
+
+                if (pScore.size() <= 0){
+                    textView1.setText("0");
+                    textView2.setText("0");
+                    textView3.setText("0");
+                } else if (pScore.size() == 1){
+                    textView1.setText(pScore.get(pScore.size() - 1).toString());
+                    textView2.setText("0");
+                    textView3.setText("0");
+                }
+                else if (pScore.size() == 2){
+                    textView1.setText(pScore.get(pScore.size() - 1).toString());
+                    textView2.setText(pScore.get(pScore.size() - 2).toString());
+                    textView3.setText("0");
+                }
+                else if (pScore.size() >= 3){
+                    textView1.setText(pScore.get(pScore.size() - 1).toString());
+                    textView2.setText(pScore.get(pScore.size() - 2).toString());
+                    textView3.setText(pScore.get(pScore.size() - 3).toString());
+                }
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -140,9 +160,29 @@ public class LeaderBoard extends Activity {
 
                Collections.sort(pCoin);
 
-                textView1Coin.setText(pCoin.get(pCoin.size() - 1).toString());
-                textView2Coin.setText(pCoin.get(pCoin.size() - 2).toString());
-                textView3Coin.setText(pCoin.get(pCoin.size() - 3).toString());
+
+
+                if (pCoin.size() <= 0){
+                    textView1Coin.setText("0");
+                    textView2Coin.setText("0");
+                    textView3Coin.setText("0");
+                } else if (pCoin.size() == 1){
+                    textView1Coin.setText(pCoin.get(pCoin.size() - 1).toString());
+                    textView2Coin.setText("0");
+                    textView3Coin.setText("0");
+                }
+                else if (pCoin.size() == 2){
+                    textView1Coin.setText(pCoin.get(pCoin.size() - 1).toString());
+                    textView2Coin.setText(pCoin.get(pCoin.size() - 2).toString());
+                    textView3Coin.setText("0");
+                }
+                else if (pCoin.size() >= 3){
+                    textView1Coin.setText(pCoin.get(pCoin.size() - 1).toString());
+                    textView2Coin.setText(pCoin.get(pCoin.size() - 2).toString());
+                    textView3Coin.setText(pCoin.get(pCoin.size() - 3).toString());
+                }
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
