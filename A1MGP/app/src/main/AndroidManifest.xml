@@ -17,11 +17,11 @@
         <activity android:name=".LevelPicker" />
         <activity android:name=".LeaderBoard" />
         <activity android:name=".SplashScreen" />
-        <activity android:name=".CreateAccount" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".DeathScreen" />
         <activity android:name=".SettingPage" />
         <activity android:name=".GamePanel" />
-        <activity android:name=".MainActivity"
+        <activity android:name=".CreateAccount"
             android:screenOrientation="portrait"/>
         <activity android:name=".GamePage" />
         <activity android:name=".Login">

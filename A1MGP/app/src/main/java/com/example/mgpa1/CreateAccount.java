@@ -95,32 +95,31 @@ public class CreateAccount extends Activity {
             @Override
             public void onClick(View v) {
                 showAlertDialog(v);
-
-
             }
         });
     }
 
     public void showAlertDialog(View view){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("asd");
-        alert.setMessage("You suer want to make account");
+        alert.setTitle("Alert");
+        alert.setMessage("You Sure you want to Return to Login Page");
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(CreateAccount.this, "Yes", Toast.LENGTH_SHORT).show();
+
 
                 Intent intent = new Intent(CreateAccount.this, Login.class);
                 startActivity(intent);
+                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
         alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(CreateAccount.this, "No", Toast.LENGTH_SHORT).show();
             }
         });
+
         alert.create().show();
     }
 }
