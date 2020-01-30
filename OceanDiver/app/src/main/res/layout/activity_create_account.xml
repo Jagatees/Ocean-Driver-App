@@ -65,23 +65,32 @@
 
     <Button
         android:id="@+id/buttonCreateAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="52dp"
-        android:text="Enter"
+        android:layout_width="135dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/custom_button"
+        android:text="Comfirm"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <Button
         android:id="@+id/button4Back"
-        android:layout_width="143dp"
-        android:layout_height="41dp"
+        android:layout_width="208dp"
+        android:layout_height="54dp"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="137dp"
-        android:text="Login Account"
+        android:background="@drawable/custom_button"
+        android:text="@string/common_signin_button_text"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCreateAccount" />
 </androidx.constraintlayout.widget.ConstraintLayout>
