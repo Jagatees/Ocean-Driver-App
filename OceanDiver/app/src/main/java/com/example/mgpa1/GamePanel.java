@@ -183,7 +183,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
             player.update(playerPoint);
             obstacleManager.update();
             bg.update();
-            speedPowerUpManager.update();
+           // speedPowerUpManager.update();
 
             if ( obstacleManager.playerCollide(player)){
                 myRef.child("GameOver").setValue("true");
@@ -191,9 +191,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
                 gameOverTime = System.currentTimeMillis();
             }
 
-            if (speedPowerUpManager.playerCollide(player)){
-                gameOver = false;
-            }
+//            if (speedPowerUpManager.playerCollide(player)){
+//                gameOver = false;
+//            }
 
         }
     }
@@ -206,16 +206,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
         final float scaleFactorX = getWidth()/WIDTH;
         final float scaleFactorY = getHeight()/HEIGHT;
 
-        //if(canvas!=null) {
             final int savedState = canvas.save();
             canvas.scale(scaleFactorY, scaleFactorX);
             bg.draw(canvas);
             canvas.restoreToCount(savedState);
-        //}
 
         player.draw(canvas);
         obstacleManager.draw(canvas);
-        speedPowerUpManager.draw(canvas);
+        //speedPowerUpManager.draw(canvas);
 
         if ( gameOver ){
             Paint paint = new Paint();
@@ -226,7 +224,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
     }
 
 
-    // andreas1724 (white color):
     private void drawCenterText(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.LEFT);
         canvas.getClipBounds(r);
