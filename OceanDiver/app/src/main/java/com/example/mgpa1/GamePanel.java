@@ -16,10 +16,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.CookieHandler;
 import java.util.Random;
@@ -32,6 +37,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("GameOver");
+    DatabaseReference myRefSettings = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
+
+    Boolean acclon ;
 
     private Rect r = new Rect();
     private MainThread thread;
@@ -52,6 +60,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
     private long frametime;
 
 
+
+
+
     public GamePanel(Context context){
         super(context);
         getHolder().addCallback(this);
@@ -63,12 +74,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
         obstacleManager = new ObstacleManager(350 , 1000 , 100, Color.rgb(150, 75,0));
         speedPowerUpManager = new SpeedPowerUpManager(200 , 1000 , 100, Color.GREEN);
 
-        setFocusable(true);
 
+
+
+        setFocusable(true);
 
         orientationData = new OrientationData();
         orientationData.register();
+
         frametime = System.currentTimeMillis();
+
     }
 
     // to restart the game when the player die or press the restart button
@@ -85,6 +100,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
+
+
+
+
 
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.water));
         bg.setVector(-5);
@@ -148,6 +167,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
     public void update() throws InterruptedException {
         if ( !gameOver ){
 
+            myRefSettings.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Accelerometer").getValue().equals("ON")){
+                        acclon = true;
+                    }else if (dataSnapshot.child("Accelerometer").getValue().equals("OFF")){
+                        acclon = false;
+                    }
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
 
             if (frametime < Constants.INIT_TIME)
                 frametime = Constants.INIT_TIME;
@@ -155,18 +190,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
             int elapsedTime = (int) (System.currentTimeMillis() - frametime);
             frametime = System.currentTimeMillis();
 
-            if (orientationData.getOrentation() != null && orientationData.getStartOrientation() != null){
-                float pitch = orientationData.getOrentation()[1] - orientationData.getStartOrientation()[1];
-                float roll = orientationData.getOrentation()[2] - orientationData.getStartOrientation()[2];
+            if (acclon == true){
+                if (orientationData.getOrentation() != null && orientationData.getStartOrientation() != null){
+                    float pitch = orientationData.getOrentation()[1] - orientationData.getStartOrientation()[1];
+                    float roll = orientationData.getOrentation()[2] - orientationData.getStartOrientation()[2];
 
-                // when we have our phone all the way down move th eplayer all the way down
-                float xspeed = 2* roll * Constants.SCREEN_WIDTH / 500f;
-                float yspeed = pitch * Constants.SCREEN_HEIGHT / 1000f;
+                    // when we have our phone all the way down move th eplayer all the way down
+                    float xspeed = 2 * roll * Constants.SCREEN_WIDTH / 500f;
+                    float yspeed = pitch * Constants.SCREEN_HEIGHT / 1000f;
 
-                playerPoint.x += Math.abs(xspeed* elapsedTime) > 5 ? xspeed * elapsedTime : 0;
-                playerPoint.y -= Math.abs(yspeed*elapsedTime) > 5 ? yspeed * elapsedTime : 0;
+                    playerPoint.x += Math.abs(xspeed* elapsedTime) > 5 ? xspeed * elapsedTime : 0;
+                    playerPoint.y -= Math.abs(yspeed*elapsedTime) > 5 ? yspeed * elapsedTime : 0;
 
+                }
             }
+
+
 
             if (playerPoint.x < 0){
                 playerPoint.x = 0;

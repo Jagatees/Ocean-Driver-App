@@ -42,7 +42,7 @@ public class SettingPage extends Activity {
 
     //Leaderboard
     TextView textView1, textView2, textView3;
-    ToggleButton toggle;
+    ToggleButton toggle, toggle2;
 
     Button btnBack;
 
@@ -100,11 +100,24 @@ public class SettingPage extends Activity {
                 }
             }
         });
+
+        toggle2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    myRef.child("Accelerometer").setValue("ON");
+                } else {
+                    // The toggle is disabled
+                    myRef.child("Accelerometer").setValue("OFF");
+                }
+            }
+        });
     }
 
 
     void onStartup(){
         toggle =  findViewById(R.id.toggleButton);
+        toggle2 =  findViewById(R.id.toggleButton2);
         btnBack =  findViewById(R.id.btnbacks);
     }
 

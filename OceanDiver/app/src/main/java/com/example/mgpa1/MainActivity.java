@@ -77,6 +77,32 @@ public class MainActivity extends Activity {
         });
 
 
+        MusicmyRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.child("Accelerometer").exists()){
+                    if (dataSnapshot.child("Accelerometer").getValue().equals("ON")){
+                        MusicmyRef.child("Accelerometer").setValue("ON");
+
+                    }else if (dataSnapshot.child("Accelerometer").getValue().equals("OFF")){
+                        MusicmyRef.child("Accelerometer").setValue("OFF");
+
+                    }
+                }else  {
+                    MusicmyRef.child("Accelerometer").setValue("OFF");
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         // Set ir to full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Get rid of the tool bar
