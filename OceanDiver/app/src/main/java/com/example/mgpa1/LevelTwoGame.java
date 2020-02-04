@@ -13,10 +13,15 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.CookieHandler;
 import java.util.Random;
@@ -51,6 +56,11 @@ public class LevelTwoGame extends SurfaceView implements SurfaceHolder.Callback 
     public static final int HEIGHT = 480;
     private CoinManager coin;
 
+    OrientationData orientationData;
+    private long frametime;
+    Boolean acclon ;
+    DatabaseReference myRefSettings = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
+
 
     public LevelTwoGame(Context context){
         super(context);
@@ -64,6 +74,11 @@ public class LevelTwoGame extends SurfaceView implements SurfaceHolder.Callback 
         enemyManager = new EnemyManager(200 , 900 , 100, Color.GREEN);
 
         setFocusable(true);
+
+        orientationData = new OrientationData();
+        orientationData.register();
+        frametime = System.currentTimeMillis();
+
     }
 
     // to restart the game when the player die or press the restart button
@@ -85,6 +100,7 @@ public class LevelTwoGame extends SurfaceView implements SurfaceHolder.Callback 
 
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.water));
         bg.setVector(-5);
+        Constants.INIT_TIME = System.currentTimeMillis();
 
         thread = new LevelTwoThread(getHolder(), this);
         thread.setRunning(true);
@@ -115,31 +131,90 @@ public class LevelTwoGame extends SurfaceView implements SurfaceHolder.Callback 
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                if ( !gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY()))
+                if ( !gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY())){
                     movingPlayer = true;
+                }
                 // if the game is over then if timer is more then timer then set the game back to false;
                 if ( gameOver && System.currentTimeMillis() - gameOverTime >= 2000 ){
                     reset();
                     gameOver = false;
                     myRef.child("GameOver").setValue("false");
+                    orientationData.newGame();
                 }
 
                 break;
             case MotionEvent.ACTION_MOVE:
-                if ( !gameOver && movingPlayer )
+                if ( !gameOver && movingPlayer ){
                     playerPoint.set((int)event.getX(), (int)event.getY());
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 movingPlayer = false;
                 break;
         }
         return true;
+        //return super.onTouchEvent(event);
     }
+
 
 
     // this is where u update the whole game like player , obstaclcer and enemy
     public void update(){
         if ( !gameOver ){
+
+            myRefSettings.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Accelerometer").getValue().equals("ON")){
+                        acclon = true;
+                    }else if (dataSnapshot.child("Accelerometer").getValue().equals("OFF")){
+                        acclon = false;
+                    }
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            if (frametime < Constants.INIT_TIME)
+                frametime = Constants.INIT_TIME;
+
+            int elapsedTime = (int) (System.currentTimeMillis() - frametime);
+            frametime = System.currentTimeMillis();
+
+            if (acclon == true){
+                if (orientationData.getOrentation() != null && orientationData.getStartOrientation() != null){
+                    float pitch = orientationData.getOrentation()[1] - orientationData.getStartOrientation()[1];
+                    float roll = orientationData.getOrentation()[2] - orientationData.getStartOrientation()[2];
+
+                    // when we have our phone all the way down move th eplayer all the way down
+                    float xspeed = 2 * roll * Constants.SCREEN_WIDTH / 500f;
+                    float yspeed = pitch * Constants.SCREEN_HEIGHT / 1000f;
+
+                    playerPoint.x += Math.abs(xspeed* elapsedTime) > 5 ? xspeed * elapsedTime : 0;
+                    playerPoint.y -= Math.abs(yspeed*elapsedTime) > 5 ? yspeed * elapsedTime : 0;
+
+                }
+            }
+
+
+
+            if (playerPoint.x < 0){
+                playerPoint.x = 0;
+            }else if (playerPoint.x > Constants.SCREEN_WIDTH){
+                playerPoint.x = Constants.SCREEN_WIDTH;
+            }
+
+            if (playerPoint.y < 0){
+                playerPoint.y = 0;
+            }else if (playerPoint.y > Constants.SCREEN_HEIGHT){
+                playerPoint.y = Constants.SCREEN_WIDTH;
+            }
+
+
             player.update(playerPoint);
             obstacleManager.update();
             bg.update();
