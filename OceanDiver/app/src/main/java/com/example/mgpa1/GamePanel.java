@@ -37,9 +37,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("GameOver");
-    DatabaseReference myRefSettings = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
 
-    Boolean acclon ;
 
     private Rect r = new Rect();
     private MainThread thread;
@@ -58,6 +56,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
     OrientationData orientationData;
     private long frametime;
+    Boolean acclon ;
+    DatabaseReference myRefSettings = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
 
 
 
@@ -81,7 +81,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
         orientationData = new OrientationData();
         orientationData.register();
-
         frametime = System.currentTimeMillis();
 
     }
@@ -100,11 +99,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback  {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
-
-
-
-
-
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.water));
         bg.setVector(-5);
         thread = new MainThread(getHolder(), this);
