@@ -72,7 +72,7 @@ public class Customization extends Activity {
                     imageView.setImageResource(R.drawable.purplealien);
                 }
                 else if (colorID.equals("Red") ) {
-                    imageView.setImageResource(R.drawable.alienblue);
+                    imageView.setImageResource(R.drawable.redalien);
                 }
 
             }
