@@ -36,7 +36,7 @@ public class SharePage extends AppCompatActivity {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
-    Target target = new Target() {
+     Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
             SharePhoto sharePhoto = new SharePhoto.Builder()

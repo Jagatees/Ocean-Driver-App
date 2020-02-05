@@ -28,6 +28,7 @@
         <activity android:name=".DeathScreen" />
         <activity android:name=".SettingPage" />
         <activity android:name=".GamePanel" />
+        <activity android:name=".InstructionPage"/>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -40,10 +41,26 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider873081136477976"
             android:exported="true" />
     </application>
+
 
 </manifest>
