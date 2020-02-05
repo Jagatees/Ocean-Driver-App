@@ -74,13 +74,13 @@ public class RectPlayer implements GameObject {
                     walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk2);
                 }else if (dataSnapshot.getValue().equals("Purple") ) {
                     idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.purplealien);
-                    walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.purplealien);
-                    walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.purplealien);
+                    walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.purplealien1);
+                    walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.purplealien2);
                 }
                 else if (dataSnapshot.getValue().equals("Red") ) {
                     idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.redalien);
-                    walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.redalien);
-                    walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.redalien);
+                    walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.redalien1);
+                    walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.redalien2);
                 }
 
                 idle = new Animation(new Bitmap[]{idleImg}, 2);

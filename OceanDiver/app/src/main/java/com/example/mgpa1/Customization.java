@@ -3,6 +3,7 @@ package com.example.mgpa1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Customization extends AppCompatActivity {
+public class Customization extends Activity {
 
     private Button btnComfirm, btnBack;
 
@@ -45,7 +48,13 @@ public class Customization extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.button);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_customization);
+
+
 
         btnComfirm = findViewById(R.id.btnComfirm);
         btnBack = findViewById(R.id.btnCBack);
@@ -67,7 +76,7 @@ public class Customization extends AppCompatActivity {
                     imageView.setImageResource(R.drawable.purplealien);
                 }
                 else if (colorID.equals("Red") ) {
-                    imageView.setImageResource(R.drawable.alienblue);
+                    imageView.setImageResource(R.drawable.redalien);
                 }
 
             }

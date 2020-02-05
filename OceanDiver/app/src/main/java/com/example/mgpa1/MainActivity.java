@@ -183,12 +183,8 @@ public class MainActivity extends Activity {
         });
 
 
-        // Set ir to full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // Get rid of the tool bar
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // Setting the Screen width and height stores in the constatnt class
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         Constants.SCREEN_WIDTH = dm.widthPixels;
@@ -204,6 +200,7 @@ public class MainActivity extends Activity {
             }
         });
         buttonEffect(btnLeaderBoard);
+
 
         button = findViewById(R.id.startGame);
         button.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +262,7 @@ public class MainActivity extends Activity {
         });
         buttonEffect(btnShare);
 
-        btnInstructions = findViewById(R.id.Instructions);
+        btnInstructions = findViewById(R.id.btnInstructions);
         btnInstructions.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -279,9 +276,18 @@ public class MainActivity extends Activity {
         });
         buttonEffect(btnInstructions);
 
-
-
-
+        btnShare = findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mp.start();
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent = new Intent(MainActivity.this, Share2.class);
+                startActivity(intent);
+            }
+        });
+        buttonEffect(btnShare);
     }
 
     @Override
