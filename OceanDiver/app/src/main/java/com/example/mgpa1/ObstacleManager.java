@@ -22,8 +22,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.zip.CheckedOutputStream;
 
-// Code Written By : Jagateesvaran , 180776N
-
+// Code Written By : Yanson , 180500N
 
 // to move the object down the screen
 public class ObstacleManager {

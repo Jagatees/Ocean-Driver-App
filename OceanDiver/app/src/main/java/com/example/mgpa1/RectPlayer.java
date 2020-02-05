@@ -21,8 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-// Code Written By : Jagateesvaran , 180776N
-
+// Code Written By : Yanson , 180500N
 
 public class RectPlayer implements GameObject {
 

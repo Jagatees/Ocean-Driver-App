@@ -3,7 +3,7 @@ package com.example.mgpa1;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-// Code Written By : Jagateesvaran , 180776N
+// Code Written By : Yanson , 180500N
 
 public class MainThread extends Thread {
 

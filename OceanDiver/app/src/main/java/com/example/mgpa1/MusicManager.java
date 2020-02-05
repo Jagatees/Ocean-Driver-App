@@ -7,8 +7,7 @@ import android.util.Log;
 import java.util.Collection;
 import java.util.HashMap;
 
-// Code Written By : Yanson Yeo
-
+// Code Written By : Yanson , 180500N
 
 public class MusicManager {
 

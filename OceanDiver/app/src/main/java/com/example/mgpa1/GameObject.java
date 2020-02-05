@@ -2,7 +2,7 @@ package com.example.mgpa1;
 
 import android.graphics.Canvas;
 
-// Code Written By : Jagateesvaran , 180776N
+// Code Written By : Yanson , 180500N
 
 
 public interface GameObject {
