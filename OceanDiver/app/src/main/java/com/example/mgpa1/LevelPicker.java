@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class LevelPicker extends Activity {
 
 
-    Button btnOne, btnTwo, btnThree;
+    Button btnOne, btnTwo, btnThree, btnback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,17 @@ public class LevelPicker extends Activity {
         btnOne = findViewById(R.id.btnLevelOne);
         btnTwo = findViewById(R.id.btnLeveltwo);
         btnThree = findViewById(R.id.btnlevelthree);
+        btnback = findViewById(R.id.btnBack2);
 
 
 
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LevelPicker.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnOne.setOnClickListener(new View.OnClickListener() {
             @Override
