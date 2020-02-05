@@ -7,9 +7,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +33,7 @@ public class CreateAccount extends Activity {
 
     EditText editTextUsername,editTextPassword;
     Button btnCreateAccount, btnReturn;
+    final MediaPlayer mp = MediaPlayer.create(this, R.raw.button);
 
     String username, password;
 
@@ -61,7 +65,7 @@ public class CreateAccount extends Activity {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mp.start();
                 username = editTextUsername.getText().toString();
                 password = editTextPassword.getText().toString();
 
@@ -90,13 +94,18 @@ public class CreateAccount extends Activity {
             }
         });
 
+        buttonEffect(btnCreateAccount);
+
 
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 showAlertDialog(v);
             }
         });
+
+        buttonEffect(btnReturn);
     }
 
     public void showAlertDialog(View view){
@@ -121,6 +130,30 @@ public class CreateAccount extends Activity {
         });
 
         alert.create().show();
+    }
+
+
+
+    private void buttonEffect(Button button)
+    {
+        button.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xe0a9a9a9, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 }
 

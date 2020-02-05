@@ -15,6 +15,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,10 @@ public class LevelPicker extends Activity {
 
 
     Button btnOne, btnTwo, btnThree, btnback;
+
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    DatabaseReference MusicmyRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +48,35 @@ public class LevelPicker extends Activity {
         btnback = findViewById(R.id.btnBack2);
 
 
+        MusicmyRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("Music").getValue().equals("ON")){
+                    onResume();
+                }else if (dataSnapshot.child("Music").getValue().equals("OFF")){
+                    onPause();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mp.start();
                 Intent intent = new Intent(LevelPicker.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnback);
+
 
         btnOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,5 +132,35 @@ public class LevelPicker extends Activity {
                 return false;
             }
         });
+    }
+
+
+    // Code by Yanson
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicManager musicplayer = null;
+        musicplayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicManager musicplayer = null;
+        musicplayer.start(this, 0);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        MusicManager musicplayer = null;
+        musicplayer.start(this,0);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        MusicManager musicplayer = null;
+        musicplayer.start(this, 0);
     }
 }
