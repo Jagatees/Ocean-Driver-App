@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
     private TextView txtName;
     private CallbackManager callbackManager;
 
-    Button button, btnSetting, btnLeaderBoard, btnCustomiza, btnLogout, btnShare;
+    Button button, btnSetting, btnLeaderBoard, btnCustomiza, btnLogout, btnShare, btnInstructions;
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference MusicmyRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
 
@@ -87,6 +87,8 @@ public class MainActivity extends Activity {
         txtName = findViewById(R.id.profile_name);
         loginButton.setPermissions(Arrays.asList("public_profile"));
         checkLoginStatus();
+
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.button);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -192,61 +194,100 @@ public class MainActivity extends Activity {
         btnLeaderBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 Intent intent = new Intent(MainActivity.this, LeaderBoard.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnLeaderBoard);
 
 
         button = findViewById(R.id.startGame);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 Intent intent = new Intent(MainActivity.this, LevelPicker.class);
                 startActivity(intent);
 
             }
         });
+        buttonEffect(button);
 
         btnSetting = findViewById(R.id.btnOptions);
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 Intent intent = new Intent(MainActivity.this, SettingPage.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnSetting);
 
         btnCustomiza = findViewById(R.id.btnCustomiose);
         btnCustomiza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mp.start();
                 Intent intent = new Intent(MainActivity.this, Customization.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnCustomiza);
 
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mp.start();
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnLogout);
 
         btnShare = findViewById(R.id.btnShare);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mp.start();
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 Intent intent = new Intent(MainActivity.this, Share2.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnShare);
+
+        btnInstructions = findViewById(R.id.btnInstructions);
+        btnInstructions.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                mp.start();
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent = new Intent(MainActivity.this, InstructionPage.class);
+                startActivity(intent);
+
+            }
+        });
+        buttonEffect(btnInstructions);
+
+        btnShare = findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mp.start();
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent = new Intent(MainActivity.this, Share2.class);
+                startActivity(intent);
+            }
+        });
+        buttonEffect(btnShare);
     }
 
     @Override
@@ -355,5 +396,26 @@ public class MainActivity extends Activity {
     }
 
 
+    private void buttonEffect(Button button)
+    {
+        button.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xe0a9a9a9, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+    }
 
 }
