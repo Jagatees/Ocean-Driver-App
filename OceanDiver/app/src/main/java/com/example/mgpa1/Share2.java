@@ -1,8 +1,8 @@
 package com.example.mgpa1;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,10 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.share.Share;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
@@ -24,6 +28,10 @@ import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.model.ShareVideo;
 import com.facebook.share.model.ShareVideoContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -31,9 +39,10 @@ import com.squareup.picasso.Target;
 
 public class Share2 extends Activity {
     private static final int REQUEST_VIDEO_CODE = 1000;
-    Button btnShareLink, btnSharePhoto, btnShareVideo;
+    Button btnShareLink, btnSharePhoto, btnShareVideo, button4;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+
 
     Target target = new Target() {
         @Override
@@ -136,6 +145,17 @@ public class Share2 extends Activity {
                 intent.setType("video/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select video"), REQUEST_VIDEO_CODE);
+            }
+        });
+
+
+        button4 = findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Share2.this, LevelPicker.class);
+                startActivity(intent);
+
             }
         });
     }
