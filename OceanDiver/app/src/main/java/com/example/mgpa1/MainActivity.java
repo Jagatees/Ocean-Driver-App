@@ -8,12 +8,14 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -198,6 +200,7 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+
 
         button = findViewById(R.id.startGame);
         button.setOnClickListener(new View.OnClickListener() {
