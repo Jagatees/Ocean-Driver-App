@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".Customization">
+
+    <Button
+        android:id="@+id/btnCBack"
+        android:layout_width="144dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/home"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="317dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginEnd="47dp"
+        android:entries="@array/player_clothes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCBack" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="173dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginBottom="104dp"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toTopOf="@+id/btnComfirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/alienbeige" />
+
+    <Button
+        android:id="@+id/btnComfirm"
+        android:layout_width="163dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="156dp"
+        android:background="@drawable/custom_button"
+        android:text="Comfirm"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
