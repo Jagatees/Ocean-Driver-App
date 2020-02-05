@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 // Code Written By : Jagateesvaran , 180776N
 
 public class SplashScreen extends Activity {
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 2000;
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference myRefColor = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid());

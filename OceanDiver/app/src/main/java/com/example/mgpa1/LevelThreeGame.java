@@ -70,7 +70,7 @@ public class LevelThreeGame extends SurfaceView implements SurfaceHolder.Callbac
         playerPoint = new Point(Constants.SCREEN_WIDTH / 2 , 3 * Constants.SCREEN_HEIGHT / 4); // where the player spawn on the screen
         player.update(playerPoint);
         obstacleManager = new ObstacleManager(480 , 800 , 100, Color.rgb(150, 75,0));
-        enemyManager = new EnemyManager(200 , 900 , 100, Color.GREEN);
+        enemyManager = new EnemyManager(200 , 2000 , 100, Color.GREEN);
         coin = new CoinManager(200 , 1000 , 100, Color.GREEN);
         setFocusable(true);
 

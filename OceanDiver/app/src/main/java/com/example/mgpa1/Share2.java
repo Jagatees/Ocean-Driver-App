@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -30,8 +31,10 @@ import com.squareup.picasso.Target;
 // Code Written By : Yanson , 180500N
 
 public class Share2 extends Activity {
+
     private static final int REQUEST_VIDEO_CODE = 1000;
     Button btnShareLink, btnSharePhoto, btnShareVideo;
+    Button btnBacks;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
@@ -72,10 +75,21 @@ public class Share2 extends Activity {
         btnShareLink = (Button) findViewById(R.id.btnShareLink);
         btnSharePhoto = (Button) findViewById(R.id.btnSharePhoto);
         btnShareVideo = (Button) findViewById(R.id.btnShareVideo);
+        btnBacks = findViewById(R.id.button3);
 
         //init fb
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
+
+
+        btnBacks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Share2.this, SplashScreen.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         btnShareLink.setOnClickListener((view) -> {

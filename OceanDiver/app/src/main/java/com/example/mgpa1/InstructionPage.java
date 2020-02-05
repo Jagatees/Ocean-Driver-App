@@ -2,11 +2,12 @@ package com.example.mgpa1;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class InstructionPage extends AppCompatActivity {
+public class InstructionPage extends Activity {
     ListView lst;
     String[] objects= {"Player", "Obstacles", "Enemy", "Coins", "Tap", "Rotate", "Credits"};
     String[] desc = {"This is player", "This is obstacle", "This is enemy", "This is a coin", "This is the controls: tap", "This is the controls: rotate", "Game made by Yanson and Jagatees"};
@@ -14,6 +15,8 @@ public class InstructionPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedinstanceState) {
         super.onCreate(savedinstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_instructions);
 
         lst = (ListView) findViewById(R.id.listview);
