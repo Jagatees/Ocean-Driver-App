@@ -125,7 +125,7 @@ public class MainActivity extends Activity {
                 });
 
         myRef.child("GameOver").setValue("false");
-        MusicmyRef.child("Music").setValue("ON");
+       // MusicmyRef.child("Music").setValue("ON");
 
         //Music player done by Yanson
         MusicManager musicplayer = null;
@@ -143,10 +143,30 @@ public class MainActivity extends Activity {
         MusicmyRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Music").getValue().equals("ON")){
-                    onResume();
-                }else if (dataSnapshot.child("Music").getValue().equals("OFF")){
-                    onPause();
+//                if (dataSnapshot.child("Music").getValue().equals("ON")){
+//                    onResume();
+//                }else if (dataSnapshot.child("Music").getValue().equals("OFF")){
+//                    onPause();
+//                }
+
+
+
+
+                if (dataSnapshot.child("Music").exists()){
+                    if (dataSnapshot.child("Music").getValue().equals("ON")){
+                        MusicmyRef.child("Accelerometer").setValue("ON");
+
+                        onResume();
+
+                    }else if (dataSnapshot.child("Music").getValue().equals("OFF")){
+                        MusicmyRef.child("Music").setValue("OFF");
+
+                        onPause();
+
+                    }
+                }else  {
+                    MusicmyRef.child("Music").setValue("OFF");
+
                 }
             }
 
@@ -167,11 +187,9 @@ public class MainActivity extends Activity {
 
                     }else if (dataSnapshot.child("Accelerometer").getValue().equals("OFF")){
                         MusicmyRef.child("Accelerometer").setValue("OFF");
-
                     }
                 }else  {
                     MusicmyRef.child("Accelerometer").setValue("OFF");
-
                 }
 
             }
