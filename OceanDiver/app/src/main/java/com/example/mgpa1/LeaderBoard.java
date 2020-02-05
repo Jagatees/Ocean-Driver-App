@@ -227,7 +227,6 @@ public class LeaderBoard extends Activity {
         MusicManager musicplayer = null;
         musicplayer.start(this, 0);
     }
-
     // Code by Yanson
     private void buttonEffect(Button button)
     {

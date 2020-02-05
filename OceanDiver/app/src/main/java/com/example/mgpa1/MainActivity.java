@@ -65,7 +65,6 @@ public class MainActivity extends Activity {
     private CallbackManager callbackManager;
 
     Button button, btnSetting, btnLeaderBoard, btnCustomiza, btnLogout, btnShare, btnInstructions;
-
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     DatabaseReference MusicmyRef = FirebaseDatabase.getInstance().getReference(currentFirebaseUser.getUid()).child("Settings");
 
