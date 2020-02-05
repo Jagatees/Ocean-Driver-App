@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -40,6 +43,8 @@ public class Customization extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.button);
         setContentView(R.layout.activity_customization);
 
         btnComfirm = findViewById(R.id.btnComfirm);
@@ -96,18 +101,22 @@ public class Customization extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mp.start();
                 Intent intent = new Intent(Customization.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+        buttonEffect(btnBack);
 
         btnComfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mp.start();
                 ref.child("Color").setValue(colorID);
                 Toast.makeText(Customization.this, "Saved Customization", Toast.LENGTH_SHORT).show();
             }
         });
+        buttonEffect(btnComfirm);
 
     }
 
@@ -142,5 +151,27 @@ public class Customization extends AppCompatActivity {
         musicplayer.start(this, 0);
     }
     // Code by Yanson
+
+    private void buttonEffect(Button button)
+    {
+        button.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xe0a9a9a9, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+    }
 
 }
